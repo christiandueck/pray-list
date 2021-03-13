@@ -1,0 +1,14 @@
+@import "./colors";
+
+.container {
+    margin-top: 4rem;
+
+    > h1 {
+        color: $light-blue;
+    }
+
+    > p {
+        margin-top: 1rem;
+        margin-bottom: 2rem;
+    }
+}
