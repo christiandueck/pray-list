@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import { AddButton } from '../components/AddButton'
 import { Header } from '../components/Header'
 import { PrayTime } from '../components/PrayTime'
 
@@ -11,6 +12,8 @@ export default function Home() {
 
       <Header />
       <PrayTime />
+
+      <AddButton />
     </>
   )
 }
