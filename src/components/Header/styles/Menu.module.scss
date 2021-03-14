@@ -1,38 +1,127 @@
 @import "../../../styles/colors";
 
-.menuButton {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 3rem;
-    height: 3rem;
-    padding: 0.5rem 1rem 0.5rem 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    border: none;
-    background: transparent;
-    cursor: pointer;    
+.menu {
+    .menuButton {
+        z-index: 100;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 3rem;
+        height: 3rem;
+        padding: 0.5rem 1rem 0.5rem 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        border: none;
+        background: transparent;
+        cursor: pointer;    
+    
+        > div {
+            position: relative;
+            height: 0.3rem;
+            border-radius: 0.15rem;
+            background: $medium-blue;
+            transition: 0.5s;
 
-    > div {
-        height: 0.3rem;
-        border-radius: 0.15rem;
-        background: $medium-blue;
+            &:first-child {
+                width: 2rem;
+            }
+    
+            &:last-child {
+                margin-top: 0.5rem;
+                width: 1.4rem;
+            }
 
-        &:first-child {
-            width: 2rem;
+            &.collapsed {
+                background: $white;
+
+                &:first-child {
+                    animation: hamburger1 0.5s;
+                    transform: rotate(45deg);
+                    position: absolute;
+                }
+
+                &:last-child {
+                    animation: hamburger2 0.5s;
+                    transform: rotate(-45deg);
+                    position: absolute;
+                    top: 0.8rem;
+                    width: 2rem;
+                }
+            }
         }
-
-        &:last-child {
-            margin-top: 0.5rem;
-            width: 1.4rem;
+    
+        &:hover {
+            > div {
+                background: $light-blue;
+            }
         }
-
     }
 
-    &:hover {
-        > div {
-            background: $light-blue;
+    .fullMenu {
+        &.collapsed {
+            display: none;
         }
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        position: absolute;
+        top: -2.5rem;
+        left: -2rem;
+
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+
+        z-index: 9;
+
+        background: linear-gradient(162.46deg, #124559 0%, #598392 100%);
+
+        padding: 2.5rem 2rem;
+
+        ul {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+
+            li {
+                padding: 1rem;
+                border: 2px solid $white;
+                border-radius: 0.5rem;
+                width: 100%;
+                list-style-type: none;
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+                
+                font-size: 1.1rem;
+                font-weight: 600;
+                color: $white;
+            }
+        }
+    }
+}
+
+@keyframes hamburger1 {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(45deg);
+    }
+}
+
+@keyframes hamburger2 {
+    from {
+        width: 1.4rem;
+        transform: rotate(0deg);
+    }
+    to {
+        width: 2.0rem;
+        transform: rotate(-45deg);
     }
 }
