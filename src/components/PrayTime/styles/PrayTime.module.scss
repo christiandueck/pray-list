@@ -1,7 +1,7 @@
-@import "./colors";
+@import "../../../styles/colors";
 
 .container {
-    margin-top: 4rem;
+    margin-top: 3rem;
 
     > h1 {
         color: $light-blue;

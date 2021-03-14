@@ -1,7 +1,7 @@
 import { Menu } from './Menu';
 import { Profile } from './Profile';
 
-import styles from '../styles/Header.module.scss';
+import styles from './styles/Header.module.scss';
 
 export function Header() {
     return (

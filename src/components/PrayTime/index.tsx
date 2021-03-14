@@ -1,4 +1,4 @@
-import styles from '../styles/PrayTime.module.scss';
+import styles from './styles/PrayTime.module.scss';
 import { PrayCard } from './PrayCard';
 
 const today = new Intl.DateTimeFormat(

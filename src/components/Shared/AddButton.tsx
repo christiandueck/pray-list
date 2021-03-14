@@ -1,4 +1,4 @@
-import styles from '../styles/AddButton.module.scss';
+import styles from './styles/AddButton.module.scss';
 
 export function AddButton() {
     return (

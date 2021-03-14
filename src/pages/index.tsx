@@ -1,18 +1,19 @@
 import Head from 'next/head'
-import { AddButton } from '../components/AddButton'
-import { Header } from '../components/Header'
-import { PrayTime } from '../components/PrayTime'
+import { AddButton } from '../components/Shared/AddButton'
+import { Header } from '../components/Header/'
+import { PrayTime } from '../components/PrayTime/'
 
 export default function Home() {
   return (
     <>
-      <Head>
-        <title>Praylist</title>
-      </Head>
+      <div className="container">
+        <Head>
+          <title>Praylist</title>
+        </Head>
 
-      <Header />
-      <PrayTime />
-
+        <Header />
+        <PrayTime />
+      </div>
       <AddButton />
     </>
   )
