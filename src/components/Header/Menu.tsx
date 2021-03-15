@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Logo } from '../Shared/Logo';
 import styles from './styles/Menu.module.scss';
 
 export function Menu() {
@@ -33,9 +34,7 @@ export function Menu() {
                         Configurar notificações
                     </li>
                 </ul>
-                <div className={styles.logo}>
-
-                </div>
+                <Logo theme="light" size="big" />
             </div>
         </div>
     );
