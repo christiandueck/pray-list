@@ -60,7 +60,7 @@
 
     .fullMenu {
         transition: 0.5s;
-        
+
         &.collapsed {
             display: none;
         }
@@ -135,12 +135,10 @@
 @keyframes fullMenu {
     0% {
         opacity: 0;
-        right: 100vw;
         bottom: 100vh;
     }
     100% {
         opacity: 1;
-        right: 0;
         bottom: 0;
     }
 }

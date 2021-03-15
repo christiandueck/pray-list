@@ -1,11 +1,17 @@
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 import styles from './styles/Profile.module.scss';
 
 export function Profile() {
+    const router = useRouter();
     const [collapsed, setCollapsed] = useState(true);
 
     function toggleCollapsed() {
         setCollapsed(!collapsed);
+    }
+
+    function processLogout() {
+        router.push('/Login');
     }
 
     return (
@@ -27,7 +33,7 @@ export function Profile() {
             </div>
             <div className={`${styles.menu} ${collapsed ? styles.collapsed : ''}`}>
                 <a>Editar dados pessoais</a>
-                <a>Sair</a>
+                <a onClick={processLogout}>Sair</a>
             </div>
         </div>
     );
