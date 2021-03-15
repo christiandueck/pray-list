@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import styles from './styles/PrayCard.module.scss';
 
-export function PrayCard() {
+export default function PrayCard() {
     const [active, setActive] = useState(false);
     const [collapsed, setCollapsed] = useState(true);
 

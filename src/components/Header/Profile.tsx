@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 import styles from './styles/Profile.module.scss';
 
-export function Profile() {
+export default function Profile() {
     const router = useRouter();
     const [collapsed, setCollapsed] = useState(true);
 

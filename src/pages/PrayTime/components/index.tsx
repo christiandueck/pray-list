@@ -1,5 +1,5 @@
 import styles from './styles/PrayTime.module.scss';
-import { PrayCard } from './PrayCard';
+import PrayCard from './PrayCard';
 
 const today = new Intl.DateTimeFormat(
     'pt-BR', {
@@ -8,7 +8,7 @@ const today = new Intl.DateTimeFormat(
     day: 'numeric'
 }).format(new Date());
 
-export function PrayTime() {
+export default function PrayTime() {
     return (
         <main className={styles.container}>
             <h1>{today.toString()}</h1>

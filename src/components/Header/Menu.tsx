@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Logo } from '../Shared/Logo';
 import styles from './styles/Menu.module.scss';
 
-export function Menu() {
+export default function Menu() {
     const [collapsed, setCollapsed] = useState(true);
 
     function toggleCollapsed() {
