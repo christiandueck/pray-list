@@ -68,12 +68,12 @@
         align-items: center;
         justify-content: center;
 
-        position: absolute;
-        top: -2.5rem;
-        left: -2rem;
+        position: fixed;
+        top: 0rem;
+        bottom: 0rem;
+        left: 0rem;
+        right: 0rem;
 
-        width: 100vw;
-        height: 100vh;
         overflow: hidden;
 
         z-index: 9;
