@@ -59,6 +59,8 @@
     }
 
     .fullMenu {
+        transition: 0.5s;
+        
         &.collapsed {
             display: none;
         }
@@ -81,6 +83,8 @@
         background: linear-gradient(162.46deg, #124559 0%, #598392 100%);
 
         padding: 8rem 2rem 4rem 2rem;
+
+        animation: fullMenu 0.5s;
 
         ul {
             flex: 1;
@@ -125,5 +129,18 @@
     to {
         width: 2.0rem;
         transform: rotate(-45deg);
+    }
+}
+
+@keyframes fullMenu {
+    0% {
+        opacity: 0;
+        right: 100vw;
+        bottom: 100vh;
+    }
+    100% {
+        opacity: 1;
+        right: 0;
+        bottom: 0;
     }
 }
