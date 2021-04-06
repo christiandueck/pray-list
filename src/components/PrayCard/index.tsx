@@ -40,8 +40,8 @@ export function PrayCard() {
       </Flex>
 
       { isExpanded
-        ? <Icon as={IoIosArrowUp} mt="2" mb="-2" color="gray.600" />
-        : <Icon as={IoIosArrowDown} mt="2" mb="-2" color="gray.600" />
+        ? <Icon as={IoIosArrowUp} mt="2" mb="-2" color="gray.700" />
+        : <Icon as={IoIosArrowDown} mt="2" mb="-2" color="gray.700" />
       }
 
     </Flex>
