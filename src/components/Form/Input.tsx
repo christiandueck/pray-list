@@ -16,7 +16,6 @@ const InputBase: ForwardRefRenderFunction<HTMLInputElement, InputProps>
           <FormLabel
             htmlFor={name}
             fontSize="sm"
-            textTransform="uppercase"
             mb="0"
             color="teal.50"
           >{label}</FormLabel>}

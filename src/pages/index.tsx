@@ -1,11 +1,11 @@
 import { Center, Stack, Flex, Button } from '@chakra-ui/react';
 import Head from 'next/head'
 import { Logo } from '../components/Logo';
-
 import { SubmitHandler, useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Input } from '../components/Form/Input';
+import { useRouter } from 'next/router';
 
 type SignInFormData = {
   email: string;
@@ -22,10 +22,13 @@ export default function SignIn() {
     resolver: yupResolver(signInFormSchema)
   });
 
+  const router = useRouter();
+
   const handleSignIn: SubmitHandler<SignInFormData> = async (values) => {
     await new Promise(resolve => setTimeout(resolve, 2000));
 
     console.log(values);
+    router.push('/pray-time');
   }
 
   return (
@@ -35,7 +38,7 @@ export default function SignIn() {
       </Head>
 
 
-      <Center h="100vh" p="10">
+      <Center h="100vh" maxH="100%" p="10">
         <Stack w="100%" maxW="360px" spacing="14">
           <Logo size={4} />
 
