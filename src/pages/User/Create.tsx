@@ -7,6 +7,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useRouter } from 'next/router';
+import { Logo } from "../../components/Logo";
 
 type CreateUserFormData = {
   name: string;
@@ -44,8 +45,6 @@ export default function CreateUser() {
 
   return (
     <>
-      <Header />
-      <Sidebar />
       <Flex
         p="6"
         w="100%"
@@ -53,7 +52,8 @@ export default function CreateUser() {
         as="form"
         onSubmit={handleSubmit(handleRegister)}
       >
-        <Text color="teal.200" fontSize="xl">Cadastro</Text>
+        <Logo size={3} />
+        <Text mt="10" color="teal.200" fontSize="xl">Cadastro de Usuário</Text>
 
         <Stack spacing="4" mt="8">
           <Input
