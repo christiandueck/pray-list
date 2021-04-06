@@ -77,6 +77,7 @@ export default function SignIn() {
               fontWeight="normal"
               mt="4"
               size="lg"
+              onClick={() => { router.push('/User/Create') }}
             >Fazer Cadastro</Button>
           </Flex>
         </Stack>

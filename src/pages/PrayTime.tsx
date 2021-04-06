@@ -2,6 +2,7 @@ import { Flex, SimpleGrid, Stack, Text } from "@chakra-ui/react";
 import React from "react";
 import { Header } from "../components/Header";
 import { PrayCard } from "../components/PrayCard";
+import { Sidebar } from "../components/Sidebar";
 
 const today = new Intl.DateTimeFormat(
   'pt-BR', {
@@ -14,7 +15,7 @@ export default function PrayTime() {
   return (
     <>
       <Header />
-
+      <Sidebar />
       <Flex
         p="6"
         w="100%"
