@@ -28,7 +28,7 @@ export default function SignIn() {
     await new Promise(resolve => setTimeout(resolve, 2000));
 
     console.log(values);
-    router.push('/pray-time');
+    router.push('/PrayTime');
   }
 
   return (
@@ -38,7 +38,7 @@ export default function SignIn() {
       </Head>
 
 
-      <Center h="100vh" maxH="100%" p="10">
+      <Center p="10" position="fixed" top={0} bottom={0} left={0} right={0}>
         <Stack w="100%" maxW="360px" spacing="14">
           <Logo size={4} />
 

@@ -41,7 +41,6 @@ export function Logo({ size }: LogoProps) {
       <Text
         fontSize={fontSize}
         fontFamily="Pacifico"
-        color="white"
       >
         Pray
       <Text as="span" color="teal.300">list</Text>
