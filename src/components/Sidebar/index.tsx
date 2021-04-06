@@ -19,7 +19,7 @@ export function Sidebar() {
           <DrawerContent bg="gray.900" p="4">
             <DrawerCloseButton mt="6" />
 
-            <DrawerHeader fontWeight="normal"><Logo size={2} /></DrawerHeader>
+            <DrawerHeader><Logo size={2} /></DrawerHeader>
 
             <DrawerBody pt="8">
               <SidebarNav />
