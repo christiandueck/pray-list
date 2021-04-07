@@ -1,7 +1,9 @@
 import { Flex, SimpleGrid, Stack, Text } from "@chakra-ui/react";
+import Head from "next/head";
 import React from "react";
+import { FloatingButton } from "../components/FloatingButton";
 import { Header } from "../components/Header";
-import { PrayCard } from "../components/PrayCard";
+import { PrayTimeCard } from "../components/PrayTimeCard";
 import { Sidebar } from "../components/Sidebar";
 
 const today = new Intl.DateTimeFormat(
@@ -14,10 +16,14 @@ const today = new Intl.DateTimeFormat(
 export default function PrayTime() {
   return (
     <>
+      <Head>
+        <title>É tempo de orar | Praylist</title>
+      </Head>
+
       <Header />
       <Sidebar />
       <Flex
-        p="6"
+        p="8"
         w="100%"
         direction="column"
       >
@@ -27,11 +33,13 @@ export default function PrayTime() {
         </Stack>
 
         <SimpleGrid mt="8" spacing="4">
-          <PrayCard />
-          <PrayCard />
-          <PrayCard />
+          <PrayTimeCard />
+          <PrayTimeCard />
+          <PrayTimeCard />
         </SimpleGrid>
       </Flex>
+
+      <FloatingButton />
     </>
   );
 }

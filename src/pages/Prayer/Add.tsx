@@ -1,5 +1,5 @@
 import { Flex, Stack, Text, Button, SimpleGrid } from "@chakra-ui/react";
-import React from "react";
+import React, { useEffect } from "react";
 import { Input } from "../../components/Form/Input";
 import { Header } from "../../components/Header";
 import { Sidebar } from "../../components/Sidebar";
@@ -8,6 +8,7 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useRouter } from 'next/router';
 import { Textarea } from "../../components/Form/Textarea";
+import Head from "next/head";
 
 type AddPrayerFormData = {
   title: string;
@@ -23,7 +24,7 @@ const editUserFormSchema = yup.object().shape({
 const today = new Date().toISOString().split('T')[0];
 
 export default function AddPrayer() {
-  const { register, handleSubmit, formState } = useForm({
+  const { register, handleSubmit, formState, setValue } = useForm({
     resolver: yupResolver(editUserFormSchema)
   });
 
@@ -36,12 +37,20 @@ export default function AddPrayer() {
     router.push('/Prayer/List');
   }
 
+  useEffect(() => {
+    setValue('closing_date', today.toString())
+  }, [])
+
   return (
     <>
+      <Head>
+        <title>Adicionar oração | Praylist</title>
+      </Head>
+
       <Header />
       <Sidebar />
       <Flex
-        p="10"
+        p="8"
         w="100%"
         flexDir="column"
         as="form"
@@ -68,7 +77,6 @@ export default function AddPrayer() {
             name="closing_date"
             label="Data para encerrar oração"
             type="date"
-            value={today.toString()}
             error={formState.errors.closing_date}
             {...register('closing_date')}
           />

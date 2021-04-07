@@ -1,5 +1,5 @@
-import { Flex, Stack, Text, Button, SimpleGrid } from "@chakra-ui/react";
-import React from "react";
+import { Flex, Stack, Text, Button, SimpleGrid, Box } from "@chakra-ui/react";
+import React, { useEffect } from "react";
 import { Input } from "../../../components/Form/Input";
 import { Header } from "../../../components/Header";
 import { Sidebar } from "../../../components/Sidebar";
@@ -8,6 +8,7 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useRouter } from 'next/router';
 import { Textarea } from "../../../components/Form/Textarea";
+import Head from "next/head";
 
 type AddPrayerFormData = {
   title: string;
@@ -21,7 +22,7 @@ const editUserFormSchema = yup.object().shape({
 })
 
 export default function EditPrayer() {
-  const { register, handleSubmit, formState } = useForm({
+  const { register, handleSubmit, formState, setValue } = useForm({
     resolver: yupResolver(editUserFormSchema)
   });
 
@@ -34,12 +35,22 @@ export default function EditPrayer() {
     router.push('/Prayer/List');
   }
 
+  useEffect(() => {
+    setValue('title', 'Motivo de oração');
+    setValue('description', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Erat enim Polemonis. Refert tamen, quo modo. Quid de Pythagora.');
+    setValue('closing_date', '2021-12-31');
+  }, [])
+
   return (
     <>
+      <Head>
+        <title>Editar oração | Praylist</title>
+      </Head>
+
       <Header />
       <Sidebar />
       <Flex
-        p="10"
+        p="8"
         w="100%"
         flexDir="column"
         as="form"
@@ -51,7 +62,6 @@ export default function EditPrayer() {
           <Input
             name="title"
             label="Título"
-            value="Motivo de oração"
             error={formState.errors.title}
             {...register('title')}
           />
@@ -59,7 +69,6 @@ export default function EditPrayer() {
           <Textarea
             name="description"
             label="Descrição"
-            value="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Erat enim Polemonis. Refert tamen, quo modo. Quid de Pythagora."
             error={formState.errors.description}
             {...register('description')}
           />
@@ -68,7 +77,6 @@ export default function EditPrayer() {
             name="closing_date"
             label="Data para encerrar oração"
             type="date"
-            value="2021-12-31"
             error={formState.errors.closing_date}
             {...register('closing_date')}
           />
@@ -122,6 +130,14 @@ export default function EditPrayer() {
             <Flex px="4" py="2" bg="gray.800" borderRadius="6" w="100%" align="center">
               <Text><Text as="span" mr="4" fontSize="sm" color="teal.600">28/02/21</Text>houve melhora</Text>
             </Flex>
+          </Stack>
+
+          <Stack pt="8">
+            <Button
+              colorScheme="red"
+              size="lg"
+              fontWeight="normal"
+            >Excluir oração</Button>
           </Stack>
         </Stack>
       </Flex>

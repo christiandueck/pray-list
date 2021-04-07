@@ -34,11 +34,11 @@ export default function SignIn() {
   return (
     <>
       <Head>
-        <title>É tempo de orar | Praylist</title>
+        <title>Praylist</title>
       </Head>
 
 
-      <Center p="10" position="fixed" top={0} bottom={0} left={0} right={0}>
+      <Center p="8" position="fixed" top={0} bottom={0} left={0} right={0}>
         <Stack w="100%" maxW="360px" spacing="14">
           <Logo size={4} />
 

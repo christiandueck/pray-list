@@ -7,6 +7,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useRouter } from 'next/router';
+import Head from "next/head";
 
 type ChangePasswordFormData = {
   current_password: string;
@@ -38,10 +39,14 @@ export default function ChangePassword() {
 
   return (
     <>
+      <Head>
+        <title>Alterar senha | Praylist</title>
+      </Head>
+
       <Header />
       <Sidebar />
       <Flex
-        p="10"
+        p="8"
         w="100%"
         flexDir="column"
         as="form"

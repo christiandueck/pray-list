@@ -6,7 +6,7 @@ interface ButtonProps extends ChakraButtonProps {
   isChecked?: boolean;
 }
 
-export function Button({ icon, isChecked = false, ...rest }: ButtonProps) {
+export function RoundedButton({ icon, isChecked = false, ...rest }: ButtonProps) {
   if (isChecked) {
     return (
       <ChakraButton

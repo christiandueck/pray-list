@@ -7,6 +7,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useRouter } from 'next/router';
+import Head from "next/head";
 
 type EditUserFormData = {
   name: string;
@@ -38,10 +39,14 @@ export default function EditUser() {
 
   return (
     <>
+      <Head>
+        <title>Alterar dados pessoais | Praylist</title>
+      </Head>
+
       <Header />
       <Sidebar />
       <Flex
-        p="10"
+        p="8"
         w="100%"
         flexDir="column"
         as="form"

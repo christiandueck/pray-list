@@ -6,6 +6,7 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useRouter } from 'next/router';
 import { Logo } from "../../components/Logo";
+import Head from "next/head";
 
 type CreateUserFormData = {
   name: string;
@@ -43,8 +44,12 @@ export default function CreateUser() {
 
   return (
     <>
+      <Head>
+        <title>Cadastro de usuário | Praylist</title>
+      </Head>
+
       <Flex
-        p="10"
+        p="8"
         w="100%"
         flexDir="column"
         as="form"
