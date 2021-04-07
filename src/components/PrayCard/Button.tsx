@@ -1,40 +1,36 @@
-import { Circle, Icon } from "@chakra-ui/react";
-import { ElementType, useState, MouseEvent } from "react";
+import { Icon, Button as ChakraButton, ButtonProps as ChakraButtonProps } from "@chakra-ui/react";
+import { ElementType } from "react";
 
-interface ButtonProps {
+interface ButtonProps extends ChakraButtonProps {
   icon: ElementType;
+  isChecked?: boolean;
 }
 
-export function Button({ icon }: ButtonProps) {
-  const [isChecked, setIsChecked] = useState(false);
-
-  function toggleCheck(event: MouseEvent) {
-    event.stopPropagation();
-    setIsChecked(!isChecked);
-  }
-
+export function Button({ icon, isChecked = false, ...rest }: ButtonProps) {
   if (isChecked) {
     return (
-      <Circle
-        as="button"
-        size="12"
+      <ChakraButton
+        size="lg"
         bg="teal.600"
-        onClick={toggleCheck}
+        borderRadius="50%"
+        variant="unstyled"
+        {...rest}
       >
         <Icon as={icon} fontSize="24" color="white" />
-      </Circle>
+      </ChakraButton>
     );
   } else {
     return (
-      <Circle
-        as="button"
-        size="12"
+      <ChakraButton
+        size="lg"
         border="2px"
+        borderRadius="50%"
         borderColor="teal.600"
-        onClick={toggleCheck}
+        variant="unstyled"
+        {...rest}
       >
         <Icon as={icon} fontSize="24" color="teal.600" />
-      </Circle>
+      </ChakraButton>
     );
   }
 }

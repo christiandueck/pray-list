@@ -1,5 +1,6 @@
 import { Flex, Stack, Text, Icon } from "@chakra-ui/react";
-import { useState } from "react";
+import { useRouter } from "next/router";
+import { useState, MouseEvent } from "react";
 
 import { HiCheck, HiPencil } from 'react-icons/hi'
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io'
@@ -8,6 +9,15 @@ import { Button } from "./Button";
 export function PrayCard() {
   const [isExpanded, setIsExpanded] = useState(false);
   const [shadow, setShadow] = useState('md');
+
+  const router = useRouter();
+
+  const [isChecked, setIsChecked] = useState(false);
+
+  function toggleCheck(event: MouseEvent) {
+    event.stopPropagation();
+    setIsChecked(!isChecked);
+  }
 
   const description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Erat enim Polemonis. Refert tamen, quo modo. Quid de Pythagora."
 
@@ -33,9 +43,9 @@ export function PrayCard() {
         </Stack>
 
         <Stack spacing="3" ml="auto">
-          <Button icon={HiCheck} />
+          <Button icon={HiCheck} onClick={toggleCheck} isChecked={isChecked} />
 
-          {isExpanded && <Button icon={HiPencil} />}
+          {isExpanded && <Button icon={HiPencil} onClick={() => { router.push('/Prayer/Edit/1') }} />}
         </Stack>
       </Flex>
 

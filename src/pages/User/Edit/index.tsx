@@ -1,62 +1,59 @@
 import { Flex, Stack, Text, Button, SimpleGrid } from "@chakra-ui/react";
 import React from "react";
-import { Input } from "../../components/Form/Input";
+import { Input } from "../../../components/Form/Input";
+import { Header } from "../../../components/Header";
+import { Sidebar } from "../../../components/Sidebar";
 import { SubmitHandler, useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useRouter } from 'next/router';
-import { Logo } from "../../components/Logo";
 
-type CreateUserFormData = {
+type EditUserFormData = {
   name: string;
   email: string;
   email_confirmation: string;
-  password: string;
-  password_confirmation: string;
 }
 
-const createUserFormSchema = yup.object().shape({
+const editUserFormSchema = yup.object().shape({
   name: yup.string().required('O nome é obrigatório'),
   email: yup.string().required('E-mail obrigatório').email('E-mail inválido'),
   email_confirmation: yup.string().oneOf([
     null, yup.ref('email')
-  ], 'O e-mail precisa ser igual ao informado acima'),
-  password: yup.string().required('Senha obritatória'),
-  password_confirmation: yup.string().oneOf([
-    null, yup.ref('password')
-  ], 'As senhas precisam ser iguais'),
+  ], 'O e-mail precisa ser igual ao informado acima')
 })
 
-export default function CreateUser() {
+export default function EditUser() {
   const { register, handleSubmit, formState } = useForm({
-    resolver: yupResolver(createUserFormSchema)
+    resolver: yupResolver(editUserFormSchema)
   });
 
   const router = useRouter();
 
-  const handleRegister: SubmitHandler<CreateUserFormData> = async (values) => {
+  const handleSave: SubmitHandler<EditUserFormData> = async (values) => {
     await new Promise(resolve => setTimeout(resolve, 2000));
 
     console.log(values);
-    router.push('/PrayTime');
+    router.back();
   }
 
   return (
     <>
+      <Header />
+      <Sidebar />
       <Flex
         p="10"
         w="100%"
         flexDir="column"
         as="form"
-        onSubmit={handleSubmit(handleRegister)}
+        onSubmit={handleSubmit(handleSave)}
       >
-        <Logo size={3} />
-        <Text mt="10" color="teal.200" fontSize="xl">Cadastro de Usuário</Text>
+        <Text color="teal.200" fontSize="xl">Editar dados pessoais</Text>
 
         <Stack spacing="4" mt="8">
           <Input
             name="name"
             label="Nome"
+            value="Christian Dueck"
             error={formState.errors.name}
             {...register('name')}
           />
@@ -65,6 +62,7 @@ export default function CreateUser() {
             name="email"
             label="E-mail"
             type="email"
+            value="christian@dueck.com.br"
             error={formState.errors.email}
             {...register('email')}
           />
@@ -73,25 +71,18 @@ export default function CreateUser() {
             name="email_confirmation"
             label="Confirmação de e-mail"
             type="email"
+            value="christian@dueck.com.br"
             error={formState.errors.email_confirmation}
             {...register('email_confirmation')}
           />
 
-          <Input
-            name="password"
-            label="Senha"
-            type="password"
-            error={formState.errors.password}
-            {...register('password')}
-          />
-
-          <Input
-            name="password_confirmation"
-            label="Confirmação de senha"
-            type="password"
-            error={formState.errors.password_confirmation}
-            {...register('password_confirmation')}
-          />
+          <Button
+            colorScheme="teal"
+            size="lg"
+            variant="outline"
+            fontWeight="normal"
+            onClick={() => { router.push('/User/Edit/ChangePassword') }}
+          >Alterar senha</Button>
 
           <SimpleGrid columns={2} spacing="4" pt="4">
             <Button
@@ -99,13 +90,13 @@ export default function CreateUser() {
               colorScheme="teal"
               size="lg"
               isLoading={formState.isSubmitting}
-            >Cadastrar</Button>
+            >Salvar</Button>
 
             <Button
               colorScheme="whiteAlpha"
               fontWeight="normal"
               size="lg"
-              onClick={() => { router.push('/') }}
+              onClick={() => { router.back() }}
             >Cancelar</Button>
           </SimpleGrid>
         </Stack>

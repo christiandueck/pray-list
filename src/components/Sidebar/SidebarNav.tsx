@@ -1,5 +1,4 @@
 import { Stack } from "@chakra-ui/react";
-import { RiContactsLine, RiDashboardLine, RiGitMergeLine, RiInputMethodLine } from "react-icons/ri";
 import { FaPray, FaStepForward, FaPlusCircle, FaUserEdit, FaSignOutAlt } from "react-icons/fa";
 import { NavLink } from "./NavLink";
 import { NavSection } from "./NavSection";
@@ -14,7 +13,7 @@ export function SidebarNav() {
     </NavSection>
 
       <NavSection title="Usuário: Christian Dueck">
-        <NavLink icon={FaUserEdit} href="/User/Edit">Dados pessoais</NavLink>
+        <NavLink icon={FaUserEdit} href="/User/Edit" shouldMatchExactHref={false}>Dados pessoais</NavLink>
         <NavLink icon={FaSignOutAlt} href="/">Sair</NavLink>
       </NavSection>
     </Stack>
