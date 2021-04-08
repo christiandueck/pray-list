@@ -9,6 +9,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useRouter } from 'next/router';
 import { Textarea } from "../../components/Form/Textarea";
 import Head from "next/head";
+import { Prayer } from '../../models/Prayer';
 
 type AddPrayerFormData = {
   title: string;
@@ -31,9 +32,28 @@ export default function AddPrayer() {
   const router = useRouter();
 
   const handleSave: SubmitHandler<AddPrayerFormData> = async (values) => {
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    const prayer: Prayer = {
+      user: '295305703231324674',
+      title: values.title,
+      description: values.description,
+      createdAt: new Date(),
+      closing_date: values.closing_date,
+      active: true,
+      records: []
+    }
 
-    console.log(values);
+    try {
+      await fetch('/api/prayer/create', {
+        method: 'POST',
+        body: JSON.stringify(prayer),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+    } catch (err) {
+      console.error(err);
+    }
+
     router.push('/Prayer/List');
   }
 

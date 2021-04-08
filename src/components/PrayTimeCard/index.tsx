@@ -37,7 +37,7 @@ export function PrayTimeCard() {
         </Stack>
 
         <Stack spacing="3" ml="auto">
-          <AddCommentModal />
+          <AddCommentModal prayerId="295307810335359490" />
 
           {isExpanded && <RoundedButton icon={HiPencil} onClick={(event) => { event.stopPropagation(); router.push('/Prayer/Edit/1'); }} />}
         </Stack>

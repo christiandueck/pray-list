@@ -4,6 +4,7 @@ import { useState, MouseEvent } from "react";
 import { SubmitHandler, useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { PrayerRecordWithPrayerId } from '../models/Prayer';
 
 import { HiCheck } from 'react-icons/hi';
 import { Input } from "./Form/Input";
@@ -16,7 +17,11 @@ const addCommentModalFormSchema = yup.object().shape({
   comment: yup.string()
 })
 
-export function AddCommentModal() {
+interface AddCommentModalProps {
+  prayerId: string;
+}
+
+export function AddCommentModal({ prayerId }: AddCommentModalProps) {
   const { isOpen, onClose, onOpen } = useDisclosure();
   const { register, handleSubmit, formState } = useForm({
     resolver: yupResolver(addCommentModalFormSchema)
@@ -25,14 +30,25 @@ export function AddCommentModal() {
   const [isChecked, setIsChecked] = useState(false);
 
   const handleSave: SubmitHandler<AddCommentModalFormData> = async (values) => {
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    const prayerRecord: PrayerRecordWithPrayerId = {
+      prayerId,
+      record: {
+        createdAt: new Date(),
+        comment: values.comment,
+      }
+    }
 
-    console.log(values);
-    setIsChecked(true);
-    onClose();
-  }
-
-  function checkWithoutComment() {
+    try {
+      await fetch('/api/prayer/addRecord', {
+        method: 'PUT',
+        body: JSON.stringify(prayerRecord),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+    } catch (err) {
+      console.error(err);
+    }
     setIsChecked(true);
     onClose();
   }
@@ -77,7 +93,7 @@ export function AddCommentModal() {
                   colorScheme="whiteAlpha"
                   fontWeight="normal"
                   size="lg"
-                  onClick={checkWithoutComment}
+                  onClick={handleSubmit(handleSave)}
                 >Pular</Button>
               </SimpleGrid>
               {isChecked &&
