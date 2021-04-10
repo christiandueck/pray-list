@@ -4,16 +4,19 @@ import { useState } from "react";
 
 import { HiPencil } from 'react-icons/hi'
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io'
+import { Prayer } from "../../models/Prayer";
 import { AddCommentModal } from "../AddCommentModal";
 import { RoundedButton } from "../RoundedButton";
 
-export function PrayTimeCard() {
+interface PrayTimeCardProps {
+  prayer: Prayer;
+}
+
+export function PrayTimeCard({ prayer }: PrayTimeCardProps) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [shadow, setShadow] = useState('md');
 
   const router = useRouter();
-
-  const description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Erat enim Polemonis. Refert tamen, quo modo. Quid de Pythagora."
 
   function toggleExpand() {
     setIsExpanded(!isExpanded);
@@ -32,14 +35,14 @@ export function PrayTimeCard() {
     >
       <Flex w="100%">
         <Stack spacing="1" mr="4">
-          <Text color="teal.300" fontWeight="bold">Motivo de oração</Text>
-          <Text fontSize="sm">{isExpanded ? description : description.slice(0, 60) + '...'}</Text>
+          <Text color="teal.300" fontWeight="bold">{prayer.title}</Text>
+          <Text fontSize="sm">{isExpanded ? prayer.description : prayer.description.slice(0, 60) + '...'}</Text>
         </Stack>
 
         <Stack spacing="3" ml="auto">
-          <AddCommentModal prayerId="295307810335359490" />
+          <AddCommentModal prayerId={prayer.id} />
 
-          {isExpanded && <RoundedButton icon={HiPencil} onClick={(event) => { event.stopPropagation(); router.push('/Prayer/Edit/1'); }} />}
+          {isExpanded && <RoundedButton icon={HiPencil} onClick={(event) => { event.stopPropagation(); router.push(`/Prayer/Edit/${prayer.id}`); }} />}
         </Stack>
       </Flex>
 

@@ -1,4 +1,4 @@
-export interface Prayer {
+export type Prayer = {
   id?: string;
   user: string;
   title: string;
@@ -10,12 +10,12 @@ export interface Prayer {
   records: PrayerRecord[];
 }
 
-export interface PrayerRecord {
+export type PrayerRecord = {
   createdAt: Date;
   comment?: string;
 }
 
-export interface PrayerRecordWithPrayerId {
+export type PrayerRecordWithPrayerId = {
   prayerId: string;
   record: PrayerRecord;
 }

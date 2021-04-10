@@ -1,20 +1,12 @@
 import { Flex, Stack, Text, Icon } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import { useState, MouseEvent } from "react";
+import { useState } from "react";
 
 import { HiPencil } from 'react-icons/hi'
 import { FaRegCalendar, FaPray } from 'react-icons/fa'
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io'
 import { RoundedButton } from "../RoundedButton";
-
-interface Prayer {
-  ref: number;
-  title: string;
-  description?: string;
-  fromDate?: Date;
-  toDate?: Date;
-  timesPrayed?: number;
-}
+import { Prayer } from "../../models/Prayer";
 
 interface PrayerListCardProps {
   prayer: Prayer;
@@ -25,15 +17,6 @@ export function PrayListCard({ prayer }: PrayerListCardProps) {
   const [shadow, setShadow] = useState('md');
 
   const router = useRouter();
-
-  const [isChecked, setIsChecked] = useState(false);
-
-  function toggleCheck(event: MouseEvent) {
-    event.stopPropagation();
-    setIsChecked(!isChecked);
-  }
-
-  prayer.description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Erat enim Polemonis. Refert tamen, quo modo. Quid de Pythagora."
 
   function toggleExpand() {
     setIsExpanded(!isExpanded);
@@ -58,11 +41,22 @@ export function PrayListCard({ prayer }: PrayerListCardProps) {
               <Text fontSize="sm">{prayer.description}</Text>
               <Stack spacing="8" direction="row" pt="3" color="gray.500">
                 <Flex>
-                  <Icon as={FaRegCalendar} mr="2" fontSize="15" /><Text fontSize="xs" >01/01/21 - 31/12/21</Text>
+                  <Icon as={FaRegCalendar} mr="2" fontSize="15" /><Text fontSize="xs" >
+                    {new Date(prayer.createdAt).toLocaleDateString('pt-BR', {
+                      day: '2-digit',
+                      month: '2-digit',
+                      year: '2-digit'
+                    })} -
+                    {new Date(prayer.closing_date).toLocaleDateString('pt-BR', {
+                      day: '2-digit',
+                      month: '2-digit',
+                      year: '2-digit'
+                    })}
+                  </Text>
                 </Flex>
 
                 <Flex>
-                  <Icon as={FaPray} mr="2" fontSize="15" /><Text fontSize="xs" >15</Text>
+                  <Icon as={FaPray} mr="2" fontSize="15" /><Text fontSize="xs" >{prayer.records.length}</Text>
                 </Flex>
               </Stack>
             </>
@@ -75,7 +69,7 @@ export function PrayListCard({ prayer }: PrayerListCardProps) {
             : <Icon as={IoIosArrowDown} mt="1" color="gray.700" />
           }
 
-          {isExpanded && <RoundedButton icon={HiPencil} onClick={(event) => { event.stopPropagation(); router.push(`/Prayer/Edit/${prayer.ref}`); }} />}
+          {isExpanded && <RoundedButton icon={HiPencil} onClick={(event) => { event.stopPropagation(); router.push(`/Prayer/Edit/${prayer.id}`); }} />}
         </Flex>
       </Flex>
 

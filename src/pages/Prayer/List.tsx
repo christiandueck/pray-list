@@ -5,27 +5,38 @@ import { FloatingButton } from "../../components/FloatingButton";
 import { Header } from "../../components/Header";
 import { PrayListCard } from "../../components/PrayListCard";
 import { Sidebar } from "../../components/Sidebar";
+import { Prayer } from "../../models/Prayer"
 
 export default function PrayerList() {
   const [filterActive, setFilterActive] = useState(true);
+  const [prayers, setPrayers] = useState<Prayer[]>([]);
 
-  const activePrayers = [
-    { ref: 1, title: `Oração ativa ${1}` },
-    { ref: 2, title: `Oração ativa ${2}` },
-    { ref: 3, title: `Oração ativa ${3}` },
-    { ref: 4, title: `Oração ativa ${4}` },
-    { ref: 5, title: `Oração ativa ${5}` },
-    { ref: 6, title: `Oração ativa ${6}` }
-  ]
+  async function updateList() {
+    try {
+      const response = await fetch('/api/prayer/getList').then(response => response.json())
 
-  const finishedPrayers = [
-    { ref: 7, title: `Oração encerrada ${1}` },
-    { ref: 8, title: `Oração encerrada ${2}` },
-    { ref: 9, title: `Oração encerrada ${3}` },
-    { ref: 10, title: `Oração encerrada ${4}` },
-    { ref: 11, title: `Oração encerrada ${5}` },
-  ]
+      const items: Prayer[] = response.data.map(prayer => {
+        return {
+          id: prayer.ref['@ref'].id,
+          user: prayer.data.user,
+          title: prayer.data.title,
+          description: prayer.data.description,
+          createdAt: prayer.data.createdAt,
+          closing_date: prayer.data.closing_date,
+          answer: prayer.data.answer,
+          active: prayer.data.active,
+          records: prayer.data.records
+        }
+      })
+      setPrayers(items)
+    } catch (err) {
+      console.error(err);
+    }
+  }
 
+  useEffect(() => {
+    updateList();
+  }, [])
 
   return (
     <>
@@ -39,6 +50,7 @@ export default function PrayerList() {
         p="8"
         w="100%"
         direction="column"
+        mb="20"
       >
         <Stack>
           <Text color="teal.200" fontSize="xl">Lista de orações</Text>
@@ -77,10 +89,8 @@ export default function PrayerList() {
         </Stack>
 
         <SimpleGrid mt="8" spacing="4">
-          {filterActive ? activePrayers.map((prayer) => (
-            <PrayListCard prayer={prayer} />
-          )) : finishedPrayers.map((prayer) => (
-            <PrayListCard prayer={prayer} />
+          {prayers.map((prayer) => (
+            <PrayListCard key={prayer.id} prayer={prayer} />
           ))}
         </SimpleGrid>
       </Flex>
