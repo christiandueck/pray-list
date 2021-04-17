@@ -3,25 +3,19 @@ import { query as q } from 'faunadb';
 import { fauna } from '../../../services/fauna';
 import { NextApiRequest, NextApiResponse } from 'next';
 
-export default async function getLists(req: NextApiRequest, res: NextApiResponse) {
+export default async function getPraterById(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'GET') {
     return res.status(405).json({ msg: 'Methold not allowed' });
   }
 
+  const { prayerId } = req.query;
+
   try {
     const response = await fauna.query(
-      q.Map(
-        q.Paginate(
-          q.Match(
-            q.Index('active_prayers_by_user'),
-            ["295305703231324674", true]
-          )
-        ),
-        q.Lambda(
-          "ref",
-          q.Get(
-            q.Var("ref")
-          )
+      q.Get(
+        q.Ref(
+          q.Collection('prayers'),
+          prayerId
         )
       )
     );

@@ -1,4 +1,4 @@
-import { Modal, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay, useDisclosure, Stack, SimpleGrid, Button } from "@chakra-ui/react"
+import { Modal, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay, useDisclosure, Stack, Button } from "@chakra-ui/react"
 import { RoundedButton } from "./RoundedButton"
 import { useState, MouseEvent } from "react";
 import { SubmitHandler, useForm } from 'react-hook-form';
@@ -81,21 +81,14 @@ export function AddCommentModal({ prayerId }: AddCommentModalProps) {
                 {...register('comment')}
               />
 
-              <SimpleGrid columns={2} spacing="4" pt="4">
+              <Stack pt="4">
                 <Button
                   type="submit"
                   colorScheme="teal"
                   size="lg"
                   isLoading={formState.isSubmitting}
                 >Salvar</Button>
-
-                <Button
-                  colorScheme="whiteAlpha"
-                  fontWeight="normal"
-                  size="lg"
-                  onClick={handleSubmit(handleSave)}
-                >Pular</Button>
-              </SimpleGrid>
+              </Stack>
               {isChecked &&
                 <Stack pt="4">
                   <Button

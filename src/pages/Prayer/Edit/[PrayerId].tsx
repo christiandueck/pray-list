@@ -9,6 +9,10 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useRouter } from 'next/router';
 import { Textarea } from "../../../components/Form/Textarea";
 import Head from "next/head";
+import { GetServerSideProps } from "next";
+import { api } from "../../../services/api";
+import { Prayer } from "../../../models/Prayer";
+import { formatDate } from "../../../utils/formateDate";
 
 type AddPrayerFormData = {
   title: string;
@@ -21,7 +25,7 @@ const editUserFormSchema = yup.object().shape({
   closing_date: yup.date().required('A data é obrigatória')
 })
 
-export default function EditPrayer() {
+export default function EditPrayer({ prayer }) {
   const { register, handleSubmit, formState, setValue } = useForm({
     resolver: yupResolver(editUserFormSchema)
   });
@@ -36,9 +40,9 @@ export default function EditPrayer() {
   }
 
   useEffect(() => {
-    setValue('title', 'Motivo de oração');
-    setValue('description', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Erat enim Polemonis. Refert tamen, quo modo. Quid de Pythagora.');
-    setValue('closing_date', '2021-12-31');
+    setValue('title', prayer.title);
+    setValue('description', prayer.description);
+    setValue('closing_date', prayer.closing_date.slice(0, 10));
   }, [])
 
   return (
@@ -81,12 +85,14 @@ export default function EditPrayer() {
             {...register('closing_date')}
           />
 
-          <Textarea
-            name="answer"
-            label="Resposta da oração"
-            error={formState.errors.answer}
-            {...register('answer')}
-          />
+          {prayer.answer &&
+            <Textarea
+              name="answer"
+              label="Resposta da oração"
+              error={formState.errors.answer}
+              {...register('answer')}
+            />
+          }
 
           <Button
             colorScheme="teal"
@@ -114,22 +120,13 @@ export default function EditPrayer() {
 
           <Stack spacing="2" pt="8">
             <Text color="teal.200">Registro de orações</Text>
-
-            <Flex px="4" py="2" bg="gray.800" borderRadius="6" w="100%" align="center">
-              <Text><Text as="span" mr="4" fontSize="sm" color="teal.600">08/03/21</Text>houve melhora</Text>
-            </Flex>
-
-            <Flex px="4" py="2" bg="gray.800" borderRadius="6" w="100%" align="center">
-              <Text><Text as="span" mr="4" fontSize="sm" color="teal.600">05/03/21</Text>houve melhora</Text>
-            </Flex>
-
-            <Flex px="4" py="2" bg="gray.800" borderRadius="6" w="100%" align="center">
-              <Text><Text as="span" mr="4" fontSize="sm" color="teal.600">02/03/21</Text>houve melhora</Text>
-            </Flex>
-
-            <Flex px="4" py="2" bg="gray.800" borderRadius="6" w="100%" align="center">
-              <Text><Text as="span" mr="4" fontSize="sm" color="teal.600">28/02/21</Text>houve melhora</Text>
-            </Flex>
+            {prayer.records.map((record, index) => {
+              return (
+                <Flex px="4" py="2" bg="gray.800" borderRadius="6" w="100%" align="center" key={index}>
+                  <Text><Text as="span" mr="4" fontSize="sm" color="teal.600">{formatDate(record.createdAt)}</Text>{record.comment}</Text>
+                </Flex>
+              );
+            })}
           </Stack>
 
           <Stack pt="8">
@@ -143,4 +140,20 @@ export default function EditPrayer() {
       </Flex>
     </>
   );
+}
+
+
+export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+  const response = await api.get(`/prayer/${params.prayerId}`);
+
+  const prayer: Prayer = {
+    ...response.data.data,
+    id: response.data.ref['@ref'].id
+  };
+
+  return {
+    props: {
+      prayer
+    }
+  }
 }

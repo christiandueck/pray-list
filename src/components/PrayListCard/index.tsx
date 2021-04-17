@@ -7,6 +7,7 @@ import { FaRegCalendar, FaPray } from 'react-icons/fa'
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io'
 import { RoundedButton } from "../RoundedButton";
 import { Prayer } from "../../models/Prayer";
+import { formatDate } from "../../utils/formateDate";
 
 interface PrayerListCardProps {
   prayer: Prayer;
@@ -42,16 +43,7 @@ export function PrayListCard({ prayer }: PrayerListCardProps) {
               <Stack spacing="8" direction="row" pt="3" color="gray.500">
                 <Flex>
                   <Icon as={FaRegCalendar} mr="2" fontSize="15" /><Text fontSize="xs" >
-                    {new Date(prayer.createdAt).toLocaleDateString('pt-BR', {
-                      day: '2-digit',
-                      month: '2-digit',
-                      year: '2-digit'
-                    })} -
-                    {new Date(prayer.closing_date).toLocaleDateString('pt-BR', {
-                      day: '2-digit',
-                      month: '2-digit',
-                      year: '2-digit'
-                    })}
+                    {formatDate(prayer.createdAt)} - {formatDate(prayer.closing_date)}
                   </Text>
                 </Flex>
 

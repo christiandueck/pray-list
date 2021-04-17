@@ -6,6 +6,7 @@ import { Header } from "../components/Header";
 import { PrayTimeCard } from "../components/PrayTimeCard";
 import { Sidebar } from "../components/Sidebar";
 import { Prayer } from "../models/Prayer";
+import { api } from "../services/api";
 
 const today = new Intl.DateTimeFormat(
   'pt-BR', {
@@ -20,9 +21,9 @@ export default function PrayTime() {
 
   async function updateList() {
     try {
-      const response = await fetch('/api/prayer/getList').then(response => response.json())
+      const response = await api.get('/prayer/getList')
 
-      const items: Prayer[] = response.data.map(prayer => {
+      const items: Prayer[] = response.data.data.map(prayer => {
         return {
           id: prayer.ref['@ref'].id,
           user: prayer.data.user,
